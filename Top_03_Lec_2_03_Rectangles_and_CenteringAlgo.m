@@ -44,7 +44,8 @@ A = zeros(Nx,Ny);
 nx = round(wx/dx);
 ny = round(wy/dy);
 
-% Co-ordinates of edges
+% Co-ordinates of edges - Refer to
+% Docs\Top_03_Lec_2_03_Rectangles_and_CenteringAlgo.md for more info
 nx1 = 1 + round((Nx - nx)/2); % Starting co-ordinate - x
 nx2 = nx1 + nx;               % Ending co-ordinate - x
 ny1 = 1 + round((Ny - ny)/2);
