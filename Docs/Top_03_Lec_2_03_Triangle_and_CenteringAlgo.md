@@ -20,3 +20,17 @@ When d in between,  f = d/h => Width = f * w
 ```
 
 Repeat till you traverse the full height.
+
+## How the width in terms of cells is counted
+
+We have `f = d/h`, which gives the fraction of width necessary for the triangle at a distance, d from the top.
+
+Instead of multiplying that with the physical width, w, we will **multiply it with the numerical width** `w/Nx`, where `Nx` is the numerical width along 'x'.
+
+By this, we have:
+
+```
+Width at distance, d, nx = round((d/h) * (w/Nx)) + 1;
+```
+
+> 📝 **NOTE:** The `+ 1` at the end takes care of adjusting the index to 1 and not to zero (0), as MATLAB indices start from 1.

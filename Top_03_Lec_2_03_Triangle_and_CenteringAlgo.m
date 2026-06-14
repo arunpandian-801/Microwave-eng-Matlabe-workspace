@@ -20,7 +20,7 @@ Nx = 100;
 Ny = round((Nx/Sx)*Sy);
 
 % Equilateral Triangle Parameters
-w = 7;
+w = 9;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Calculate a Grid
@@ -28,9 +28,9 @@ w = 7;
 
 % Grid Axes
 dx = Sx/Nx;
-xa = (0.5:Nx-0.5)*dx;
+xa = (0.5:Nx-0.5) * dx;
 dy = Sy/Ny;
-ya = (0.5:Ny-0.5)*dy;
+ya = (0.5:Ny-0.5) * dy;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Build a Triangle
@@ -42,20 +42,27 @@ A = zeros(Nx,Ny);
 % Dimensions of triangle
 h = w * sqrt(3)/2;  % Height of triangle
 
+% Estimating the y-coordinates
+ny  = round(h/dy);             % Gives the numerical height of triangle
+ny1 = floor((Ny - ny)/2) + 1;  % Starting y coordinate
+ny2 = ny1 + ny;                % Ending y coordinate
 
-% Dimensions of rectangle
-nx = round(wx/dx);
-ny = round(wy/dy);
+% Estimating the x-coordinates
+for ny = ny1 : ny2
 
-% Co-ordinates of edges - Refer to
-% Docs\Top_03_Lec_2_03_Rectangles_and_CenteringAlgo.md for more info
-nx1 = 1 + round((Nx - nx)/2); % Starting co-ordinate - x
-nx2 = nx1 + nx;               % Ending co-ordinate - x
-ny1 = 1 + round((Ny - ny)/2);
-ny2 = ny1 + ny;
+    % Computing the distance, d from the top
+    d   = (ny - ny1);
 
-% Incorporate
-A(nx1:nx2, ny1:ny2) = 1;
+    % Computing the numerical width, at distance, d
+    nx  = round((d/(ny2 - ny1)) * (w/dx)) + 1; % Refer to it's docs
+
+    % Computing start and end co-ordinates
+    nx1 = floor((Nx - nx)/2) + 1;
+    nx2 = nx1 + nx;
+
+    % Incorporate the appropriate cells into the array
+    A(nx1:nx2, ny) = 1;               % Fill only at y-coordinate of ny.
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Draw the rectangle
