@@ -61,25 +61,15 @@ r   = 2;
 x0  = 2;
 y0  = -3;
 
-% Defining a new grid axis centered around x0, y0 and not somewhere else
-xa1 = xa - x0;
-ya1 = ya - y0;
-% Notice how we are using centered grid axis and not standard grid axis!
-
-% Creating new meshgrid
-[Y1, X1] = meshgrid(ya1, xa1);
-
-% Creating radial grid
-RSQ1 = X1.^2 + Y1.^2;
+% Creating radial grid centered around x0 & y0
+RSQ1 = (X - x0).^2 + (Y - y0).^2;
 
 % Creating the circle
 C2 = RSQ1 <= r^2;
 
 % Visualize circle
 subplot(2,3,3);
-imagesc(xa, ya, C2.');  % Notice how I am still using xa and ya and not xa1 and ya1
-                        % You need the old centered co-ordinate axis
-
+imagesc(xa, ya, C2.');
 colorbar;
 axis equal tight;
 title("Circle centered elsewhere");
@@ -88,9 +78,39 @@ title("Circle centered elsewhere");
 %% Ellipse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Defining radiuses and centre co-ordinates
-r1 = 2;
-r2 = 3;
+%% Ellipse centered at origin
+
+% Defining radiuses
+xr = 3;
+yr = 2;
+
+% Creating Ellipse
+E1 = (X/xr).^2 + (Y/yr).^2 <= 1;
+
+% Visualize ellipse
+subplot(2,3,4);
+imagesc(xa, ya, E1.');
+colorbar;
+axis equal tight;
+title("Ellipse centered at origin");
+
+%% Ellipse centered elsewhere
+
+% Defining radiuses and center
+xr  = 3;
+yr  = 2;
+x0  = 2;
+y0  = -3;
+
+% Creating Ellipse
+E2 = ((X - x0)/xr).^2 + ((Y - y0)/yr).^2 <= 1;
+
+% Visualize ellipse
+subplot(2,3,5);
+imagesc(xa, ya, E2.');
+colorbar;
+axis equal tight;
+title("Ellipse centered elsewhere");
 
 
 
